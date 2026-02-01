@@ -4,7 +4,7 @@ from sklearn.model_selection import StratifiedKFold, cross_validate
 
 def run_cv(model, X, y, random_state: int = 42, n_splits: int = 10) -> dict:
     """
-    10-krotna walidacja krzyżowa (stratyfikowana).
+    10-krotna walidacja krzyżowa
     Zwraca średnie i odchylenia dla kilku metryk.
     """
     cv = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state)

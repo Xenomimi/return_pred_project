@@ -8,7 +8,7 @@ import pandas as pd
 
 def undersample_train(X: pd.DataFrame, y: pd.Series, random_state: int = 42):
     """
-    Prosty undersampling klasy większościowej (0) do liczebności klasy 1.
+    Undersampling klasy większościowej (0) do liczebności klasy 1.
     Balansujemy TYLKO zbiór treningowy.
     """
     df = X.copy()

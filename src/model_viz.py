@@ -66,7 +66,7 @@ def plot_confusion_matrices(models: dict, X_test, y_test, save_dir: str) -> None
 
 def plot_feature_importance(model, feature_names, save_path: str, top_n: int = 20, title: str | None = None) -> None:
     """
-    Zapisuje wykres ważności cech (jeśli model ma feature_importances_).
+    Zapisuje wykres ważności cech
     Działa dla RandomForest / XGBoost.
     """
     if not hasattr(model, "feature_importances_"):

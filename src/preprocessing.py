@@ -19,7 +19,7 @@ def audit_data_quality(df: pd.DataFrame) -> dict:
     report["any_nan"] = bool(na_count.any())
     report["nan_total"] = int(na_count.sum())
 
-    # Top 10 kolumn z największą liczbą NaN (jakby kiedyś się pojawiły)
+    # Top 10 kolumn z największą liczbą NaN
     report["nan_by_col_top10"] = (
         na_count[na_count > 0]
         .sort_values(ascending=False)
@@ -33,8 +33,6 @@ def audit_data_quality(df: pd.DataFrame) -> dict:
 def remove_full_row_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     """
     Usuwa duplikaty całych wierszy.
-    (Duplikaty po kluczu typu Transaction ID / Item ID / Date zostawiamy,
-    bo to może być prawidłowa struktura danych.)
     """
     df = df.copy()
     df = df.drop_duplicates()
@@ -45,7 +43,7 @@ def preprocessing_pipeline(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     """
     Pipeline do wstępnego przetwarzania:
     - audyt jakości
-    - usunięcie duplikatów całych wierszy (jeśli są)
+    - usunięcie duplikatów całych wierszy
     - ponowny audyt po czyszczeniu
     """
     before = audit_data_quality(df)

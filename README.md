@@ -32,13 +32,7 @@ retrun_pred_project/
 ```
 
 ## 1) Pobranie repozytorium
-Jeśli masz repo na GitHubie:
-```bash
-git clone <URL_DO_REPO>
-cd retrun_pred_project
-```
-
-Jeśli pracujesz lokalnie — przejdź do katalogu projektu:
+Przejdź do katalogu projektu:
 ```bash
 cd D:\Users\micha\Desktop\retrun_pred_project
 ```
@@ -64,11 +58,6 @@ Następnie zainstaluj wymagane biblioteki (jeśli masz `requirements.txt`):
 pip install -r requirements.txt
 ```
 
-Jeśli nie masz `requirements.txt`, minimalny zestaw (dostosuj do projektu):
-```bash
-pip install pandas numpy scikit-learn matplotlib xgboost optuna pytest
-```
-
 ## 3) Dane wejściowe
 W katalogu `data/` musi znajdować się plik:
 ```
@@ -80,7 +69,7 @@ Jeśli go nie ma, pobierz go i umieść w `data/` (np. z Kaggle).
 ## 4) Konfiguracja ścieżki do danych
 W `src/config.py` powinna być ustawiona ścieżka:
 - albo względna: `DATA_PATH = "data/order_dataset.csv"`
-- albo absolutna (jeśli tak wolisz)
+- albo absolutna
 
 Upewnij się, że wskazuje na istniejący plik.
 
@@ -108,12 +97,12 @@ Po udanym uruchomieniu powinny pojawić się m.in.:
 - `outputs/models/fi_rf.png`
 - `outputs/models/fi_xgb_tuned.png`
 
-## 6) EDA (opcjonalnie)
-Jeśli masz przygotowany skrypt EDA:
+## 6) EDA
+
 ```bash
 python run_eda.py
 ```
-Wyniki (wykresy) powinny zostać zapisane do katalogu `figures/` lub `outputs/` (w zależności od implementacji).
+Wyniki (wykresy) powinny zostać zapisane do katalogu lub `outputs/eda`
 
 
 ## 7) Testy (pytest)
@@ -134,11 +123,6 @@ Linux/macOS:
 ```bash
 PYTHONPATH=. pytest -q
 ```
-
-## Typowe problemy i szybkie rozwiązania
-- `ConvergenceWarning` w LogisticRegression: to ostrzeżenie o zbieżności; zwykle pomaga standaryzacja cech lub zwiększenie `max_iter`. Nie blokuje uruchomienia projektu.
-- Bardzo wysoka ważność `Transaction ID`: nie używaj `Transaction ID` jako cechy wejściowej (to identyfikator, nie cecha), bo może fałszować interpretację i uczyć model „artefaktów”.
-- Niezbalansowane dane: wyniki accuracy mogą być mylące. Patrz głównie na ROC-AUC/PR-AUC/F1 i dobór progu.
 
 ## Reprodukowalność
 W projekcie używany jest `random_state=42` (w konfiguracji oraz w splitach), co ułatwia powtarzalność wyników.

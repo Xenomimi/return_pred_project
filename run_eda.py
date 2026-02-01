@@ -11,38 +11,38 @@ from src.eda import (
     correlation_with_target, correlation_heatmap
 )
 
-# 0) Katalog na wyniki EDA
+# Katalog na wyniki EDA
 Path("outputs/eda").mkdir(parents=True, exist_ok=True)
 
-# 1) Wczytanie + preprocessing
+# Wczytanie + preprocessing
 df = load_data(DATA_PATH)
 df, report = preprocessing_pipeline(df)
 print("AUDYT:", report)
 
-# 2) Feature engineering (tabela transakcyjna)
+# Feature engineering
 tx = build_features_transaction_level(df)
 
-# 3) Podstawowe info
+# Podstawowe info
 basic_info(tx)
 
-# 4) Statystyki opisowe (zapis do CSV + print fragmentu)
+# Statystyki opisowe
 stats = descriptive_stats(tx)
 stats.to_csv("outputs/eda/descriptive_stats.csv")
 print("\nStatystyki opisowe (pierwsze 15 wierszy):")
 print(stats.head(15))
 print("\nZapisano: outputs/eda/descriptive_stats.csv")
 
-# 5) Rozkład targetu
+# Rozkład targetu
 target_distribution(tx, target_col="Returned", save_path="outputs/eda/target_distribution.png")
 
-# 6) Histogramy
+# Histogramy
 histograms(
     tx,
     cols=["TotalRevenue_sum", "DiscountRatio", "UnitPrice", "UniqueItems_n", "ItemsPurchased_sum"],
     save_dir="outputs/eda"
 )
 
-# 7) Boxploty vs target
+# Boxploty vs target
 boxplots_by_target(
     tx,
     cols=["TotalRevenue_sum", "DiscountRatio", "UnitPrice", "UniqueItems_n", "ItemsPurchased_sum"],
@@ -50,7 +50,7 @@ boxplots_by_target(
     save_dir="outputs/eda"
 )
 
-# 8) Scatter: rabat vs wartość koszyka
+# Scatter: rabat vs wartość koszyka
 scatter_by_target(
     tx,
     x="TotalRevenue_sum",
@@ -59,7 +59,7 @@ scatter_by_target(
     save_path="outputs/eda/scatter_revenue_discount.png"
 )
 
-# 9) Korelacje (bez Transaction ID)
+# Korelacje (bez Transaction ID)
 tx_corr = tx.drop(columns=["Transaction ID"], errors="ignore")
 
 corr_to_target = correlation_with_target(tx_corr, target_col="Returned", top_n=15)

@@ -15,7 +15,7 @@ def tune_xgb_optuna(
 ) -> dict:
     """
     Strojenie hiperparametrów XGBoost za pomocą Optuny.
-    Optymalizujemy ROC-AUC w 10-krotnej walidacji krzyżowej (StratifiedKFold).
+    Optymalizujemy ROC-AUC w 10-krotnej walidacji krzyżowej
 
     returns: best_params (dict): najlepsze parametry do XGBClassifier
     """
@@ -64,7 +64,7 @@ def tune_xgb_optuna(
 
     best_params = study.best_params
 
-    # dopinamy parametry stałe (żeby łatwo wpiąć do modelu)
+    # dopinamy parametry stałe
     best_params.update({
         "objective": "binary:logistic",
         "eval_metric": "auc",
